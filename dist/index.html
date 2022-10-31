@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<meta name="viewport" content="viewport-fit=cover, user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+	<title>Bubble Tone</title>
+	<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon-180x180.png">
+	<link rel="icon" href="./favicon.ico"/>
+
+	<style>
+		html, body {
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		#renderCanvas {
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(#000066, #0000FF);
+			touch-action: none;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+		}
+
+		.footer {
+			position: absolute;
+			bottom: 4px;
+			right: 8px;
+			color: #C0C0C0;
+			font-size: 9pt;
+			font-family: sans-serif;
+		}
+		.footer>a {
+			margin-left: 8px;
+		}
+	</style>
+</head>
+
+<body>
+	<canvas id="renderCanvas"></canvas>
+	<div class="footer">
+		<span id="version-info">Loading...</span>
+		<a href="https://github.com/vcraftjp/WebGL_Bubble" target="_blank"><img src="./images/github_icon.png" title="GitHub"></a>
+	</div>
+
+	<script src="./babylonjs/babylon.js" defer></script>
+	<script src="./babylonjs/babylon.gui.min.js" defer></script>
+	<script src="./tonejs/Tone.js" defer></script>
+	<script src="./js/Utils.js" defer></script>
+	<script src="./js/GameApp.js" defer></script>
+	<script src="./js/GameObject.js" defer></script>
+	<script src="./js/Bubble.js" defer></script>
+	<script src="./js/GUI.js" defer></script>
+	<script src="./js/main.js" type="module" defer></script>
+</body>
+</html>
