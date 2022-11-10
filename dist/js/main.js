@@ -21,11 +21,14 @@ class App extends GameApp {
         this.updateBackgroudColor(App.BACKGROUND_HUE);
         this.initGlowLayer(App.GLOW_INTENSITY);
         this.pointerDragMargin = App.DRAG_MARGIN;
-        this.setFooterText();
+        this.setVersionInfo();
     }
-    setFooterText() {
+    setVersionInfo() {
+        this.setFooterText("Bubble Tone " + Utils.dateString(new Date(document.lastModified)) + "  Babylon.js " + BABYLON.Engine.Version + "  Tone.js " + Tone.version);
+    }
+    setFooterText(s) {
         const div = document.getElementById("version-info");
-        div.textContent = "Bubble Tone " + Utils.dateString(new Date(document.lastModified)) + "  Babylon.js " + BABYLON.Engine.Version + "  Tone.js " + Tone.version;
+        div.textContent = s;
     }
     createScene() {
         for (let i = 0; i < App.BUBBLE_MAX; i++) {

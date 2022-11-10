@@ -80,9 +80,10 @@ class GameApp {
 	onPointerDown: (x: number, y: number, event: PointerEvent) => void;
 	onPointerUp: (x: number, y: number, event: PointerEvent) => void;
 	onPointerDragged: (x: number, y: number, event: PointerEvent) => void;
-	pointerPressed = false;
-	prevPoint: { x: number, y: number };
+
 	pointerDragMargin = 2;
+
+	pointerMap = new Map<number, { x: number, y: number }>;
 
 	onKeyDown: (event: KeyboardEvent) => void;
 	onKeyUp: (event: KeyboardEvent) => void;
@@ -164,16 +165,15 @@ class GameApp {
 	registerEvents(): void {
 		if (this.onPointerDown) {
 			this.canvas._canvas.addEventListener("pointerdown", (event) => {
-				this.pointerPressed = true;
 				const pt = this.canvas.clientToScene(event.clientX, event.clientY);
-				this.prevPoint = pt;
+				this.pointerMap.set(event.pointerId, pt);
 				console.log("pointer down: " + Utils.round(pt.x) + "," +  Utils.round(pt.y));
 				this.onPointerDown(pt.x, pt.y, event);
 			});
 		}
 		if (this.onPointerUp) {
 			this.canvas._canvas.addEventListener("pointerup", (event) => {
-				this.pointerPressed = false;
+				this.pointerMap.delete(event.pointerId);
 				const pt = this.canvas.clientToScene(event.clientX, event.clientY);
 				console.log("pointer up");
 				this.onPointerUp(pt.x, pt.y, event);
@@ -181,10 +181,11 @@ class GameApp {
 		}
 		if (this.onPointerDragged) {
 			this.canvas._canvas.addEventListener("pointermove", (event) => {
-				if (this.pointerPressed) {
+				const prevPt = this.pointerMap.get(event.pointerId);
+				if (prevPt) {
 					const pt = this.canvas.clientToScene(event.clientX, event.clientY);
-					if (Utils.distance(pt, this.prevPoint) >= this.pointerDragMargin) {
-						this.prevPoint = pt;
+					if (Utils.distance(pt, prevPt) >= this.pointerDragMargin) {
+						this.pointerMap.set(event.pointerId, pt);
 						this.onPointerDragged(pt.x, pt.y, event);
 					}
 				}
